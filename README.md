@@ -56,14 +56,76 @@ pipeline {
 ```
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/6a79ce0e-a561-43c0-84c7-e48c7fd9332b)
 
-8. Next, click on **Build Now** on the **webapp-pipeline-job** page. This instructs **Jenkns** builds the first job, **cloning the git repo**.<p>
+### Build Artifact with Jenkins and Maven
+1. Click on **Build Now** on the **webapp-pipeline-job** page. This instructs **Jenkns** builds the first job, **cloning the git repo**.<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/1c6e60cf-f20e-4b32-bc3e-89a16dad2d0c)<p>
 The build has been successful. Jenkins has clone the **Github repo** containing the source code.<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/b7411e31-73de-4dac-bdfb-a75414aea47c)<p>
 
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/3ca668f8-a7f9-4704-9694-c5d49ae8396c)<p>
-At this point, we can understand the job properly courtesy **Blue Ocean**, one of the plugins we installed earlier. <p>.
+At this point, we can understand the job properly courtesy **Blue Ocean**, one of the plugins we installed earlier. <p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/fff9a4a4-2cda-42d0-904d-f0e1d06c083e)<p>
+
+2. Click **Configure** on the Job page, click **Pipeline** under **Configure**.
+3. Add another **stages** for the the job. These stages will **build, test and package the artifact with maven**.
+```
+/* groovylint-disable-next-line CompileStatic */
+pipeline {
+    agent any
+    tools {
+        maven 'Maven3.9.6'
+    }
+
+    stages {
+        stage('Git clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/JonesKwameOsei/web-app.git'
+            }
+        }
+
+        stage('Build with Maven') {
+            steps{
+                sh "mvn clean"
+            }
+        }
+
+        stage('Testing with Maven') {
+            steps{
+                sh "mvn  test"
+            }
+        }
+
+        stage('Package with Maven') {
+            steps {
+                sh "mvn package"
+            }
+        }
+    }
+}
+```
+4. Click **Apply** and **Save**.
+5. On the **webapp-pipeline-job** page, click **Build** for Jenkins to build the artifact with **Maven**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/afe8adb1-5973-4293-b2ec-ea20122718ea)<p>
+We can observe that Jenkins executed the build processes according to the order of the stages specified.<p> Let is look into how **Jenkins** utilised **Maven** to build the artifact in **Bleu Ocean**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/b18222a2-de94-4198-a729-2ec3b28a5a7f)<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/6bc8eec0-3150-4a21-a862-5fedf63711f1)<p>
+
+
+### Testing Artifact with Jenkins and SonarCube
+At this stage, we will test the built artifact with sonarqube utilising **Jenkins'** automation processes. 
+1. Navigate  to the main Jenkins dashboard, click on **Manage Jenkins**, then click on **tools**. <p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/0579c40c-9672-4f4d-8ad9-1a4cd6441a4a)<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/0e79c630-8d34-4bb4-a4b7-90d9244a23a7)<p>
+2. On the **Tools** page, scroll down to **SonarQube Scanner installations**, click on **add SonarQube Scanner**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/1e20c96c-3a07-457e-a3ce-11c38cf490df)<p>
+3. Under **SonarQube Scanner**, configure the following:
+- Name: Sonar5.0
+- Version: SonarQube Scanner 5.0.1.3006. NB: Select the latest version.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/02ea5bb8-be06-4324-b837-bddc71bd1411)<p>
+4. Click **Apply** and **Save**
+
+
+
 
 
 

@@ -122,7 +122,29 @@ At this stage, we will test the built artifact with sonarqube utilising **Jenkin
 - Name: Sonar5.0
 - Version: SonarQube Scanner 5.0.1.3006. NB: Select the latest version.<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/02ea5bb8-be06-4324-b837-bddc71bd1411)<p>
-4. Click **Apply** and **Save**
+4. Click **Apply** and **Save**.
+5. Next, click **System** under **System Configuration** to configure **SonarQube server**.
+6. On the **System** page, scroll down to **SonarQube servers** and click on **Add SonarQube**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/1c48121a-8a01-4e8d-8a30-9f27a8c9f615)<p>
+7. Generate token from **SonarQube server**
+- Click the user profile next to the **Search for projects** bar, then click **My Account**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/c750467e-e728-48e9-9133-d21bc99bbe11)<p>
+- Select the **security tab**<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/b0697fa0-dce4-4513-a22b-a68080338555)<p>
+- Enter the **Name** for the token, select **Global Analysis Token** under the **Type**, Select one of the options for the **Expires in** and **Generate** the token. **NB**: Pay attention to the warning after generating the token and copy it. 
+8. **Check mark** the **Environment variables** and configure the following under the **SonarQube installations**:
+- Name: SonarQube (it can be any name)
+- Server URL: http://localhost:9000 (if it's an Amazon EC2 instance, then: http://instanceIPAddress:9000)
+- Server authentication token: Click **+ Add**, select **Jenkins** to add SonarQube credentials as below.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/d495ecd4-abda-4934-bb34-01abc8da5933)<P>
+- Click the drop down under the **Server authentication token** and select the credential we created. <p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/13a52f3f-164f-44d9-b491-cf8cfb94646e)
+
+
+
+
+
+
 
 
 

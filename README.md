@@ -42,7 +42,7 @@ i. Write a script for **Git clone**, click **Apply** and **Save**.
 pipeline {
     agent any
     tools {
-        maven 'maven3.9.6'
+        maven 'Maven3.9.6'
     }
 
     stages {
@@ -55,6 +55,11 @@ pipeline {
 }
 ```
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/6a79ce0e-a561-43c0-84c7-e48c7fd9332b)
+
+8. Next, click on **Build Now** on the **webapp-pipeline-job** page. This instructs **Jenkns** builds the first job, **cloning the git repo**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/1c6e60cf-f20e-4b32-bc3e-89a16dad2d0c)<p>
+The build has been successful. Jenkins has clone the **Github repo** containing the source code.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/3ca668f8-a7f9-4704-9694-c5d49ae8396c)
 
 
 

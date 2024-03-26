@@ -141,7 +141,67 @@ At this stage, we will test the built artifact with sonarqube utilising **Jenkin
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/13a52f3f-164f-44d9-b491-cf8cfb94646e)<p>
 - Click **Apply** and **Save**.
 9. Click on **webapp-pipeline-job** on the **Jenkins Dashboard** to return to the job page, then select **Configure**.
-10. 
+10. Click **Pipeline** to add another **pipeline scripts**, then apply and save the changes. This script builds **SonarQube Analysis** to test the artifact.
+```
+pipeline {
+    agent any
+    tools {
+        maven 'Maven3.9.6'
+    }
+
+    stages {
+        stage('Git clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/JonesKwameOsei/web-app.git'
+            }
+        }
+
+        stage('Build with Maven') {
+            steps{
+                sh "mvn clean"
+            }
+        }
+
+        stage('Testing with Maven') {
+            steps{
+                sh "mvn  test"
+            }
+        }
+
+        stage('Package with Maven') {
+            steps {
+                sh "mvn package"
+            }
+        }
+        stage('SonarQube Analysis') {
+            environment {
+                ScannerHome = tool 'sonar5.0'
+            }
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${ScannerHome}/bin/sonar-scanner -Dsonar.projectKey=jones"
+                    }
+                }
+            }
+        }
+    }
+}
+```
+The job failed with the error message "ERROR: No tool named sonar5.0 found". This is a spelling error, the tool name should have started with **S** and not **s**. We will amend this in the script and rerun the build again. The failure occured when Jenkins was running the **Sonarube Analysis**. However, all the preceeding jobs were successful. <p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/0e4e3fb2-ac41-4232-a771-10fb992b80cd)<p>
+```
+ environment {
+                ScannerHome = tool 'Sonar5.0'  # The tool name has been amended.
+            }
+```
+Jenkins has completed the build without error. <p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/b501d943-7a78-4cf9-a29f-28956facbd29)<p>
+Let us confirm the test of the artifact in the **SonarQube server**. <p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/e49ca1c0-29a3-48a8-a46f-091decb73c86)<p>
+
+
+
 
 
 

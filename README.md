@@ -377,6 +377,7 @@ Deployed Atrifact:<p>
 
 Having configured this, any change of event would trigger Jenkins to run a **build job***.<p>
 Made changes to in the source code, pushed the changes to github and it triggered Jenkins to run the build job. <p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/7d55924b-2ef6-43f9-814f-4dfc260549fd)<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/d349a3fb-1158-4c7f-967e-56b9658f2d02)<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/3a6c9d6e-3bb2-419d-a1e4-7917686b5aee)<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/9009ba29-9ddd-45b2-b042-79e3d8d56e16)<p>

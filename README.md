@@ -283,6 +283,91 @@ Jenkins has build the job by loading the artifact to the repo, **webapp-release*
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/934d839d-9eab-46f2-8140-6e9e69c45fd0)<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/b84f237f-c7e6-44df-a008-f6e074ce9b7a)<p>
 
+### Deploy Artifact on Tomcat Server
+1. Navigate to **Pipeline**, select **Pipeline Syntax**.
+2. Add the following configuration to the **Snippet Generator**:
+- Sample Step: deploy: Deploy war/ear to a container
+- WAR/EAR file: target/*.war
+- Context path: leave blank
+- Containers: Select Tomcat 9.x Remote
+	- Credentials: **add** tomcat servercredentials and select it
+   	- Tomcat URL: Enter Tomcat server URL
+3. Generate Pipeline Script. Then, copy and add it to the pipeline script as a step in the **Stage, deploy to UAT**.
+```
+pipeline {
+    agent any
+    tools {
+        maven 'Maven3.9.6'
+    }
+
+    stages {
+        stage('Git clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/JonesKwameOsei/web-app.git'
+            }
+        }
+
+        stage('Build with Maven') {
+            steps{
+                sh "mvn clean"
+            }
+        }
+
+        stage('Testing with Maven') {
+            steps{
+                sh "mvn  test"
+            }
+        }
+
+        stage('Package with Maven') {
+            steps {
+                sh "mvn package"
+            }
+        }
+        stage('SonarQube Analysis') {
+            environment {
+                ScannerHome = tool 'Sonar5.0'
+            }
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${ScannerHome}/bin/sonar-scanner -Dsonar.projectKey=jones"
+                    }
+                }
+            }
+        }
+
+        stage('Upload to Nexus') {
+            steps {
+                nexusArtifactUploader artifacts: [[artifactId: 'maven-web-application', classifier: '', file: '/var/lib/jenkins/workspace/webapp-pipeline-job/target/web-app.war', type: 'war']], credentialsId: 'Nexus-id', groupId: 'com.mt', nexusUrl: '18.170.1.140:8081/', nexusVersion: 'nexus3', protocol: 'http', repository: 'webapp-release', version: '3.1.2-RELEASE'
+            }
+        }
+
+        stage('Deploy to UAT') {
+            steps {
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://18.134.8.62:8080')], contextPath: null, war: 'target/*.war'
+            }
+        }
+    }
+}
+```
+4. Deploy the artifact by clicking on **Build Now** on the **webapp-pipeline-job** page.<p>
+The deployment was successful and this can be confirmed from **Blue Ocean**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/faaf8b97-4152-4dca-b092-1df8fc40222c)<p>
+Finally, let us confirm if the artifact was actually deployed on the **Tomcat Server**.<p>
+Tomcat server before deployment:<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/235d93f4-93d0-4e12-9095-b80bddd14a3b)<p>
+Tomcat server after deployment:<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/a6d6e143-e616-464c-b840-b257bbb8dd64)<p>
+It is evident that we have successfully deployed a build artifact on Apache Tomcat9 server with **Jenkins continuous integration and continuous deployment. Clicking on **/web-app** on the **Tomcat Web Application Manager** will display the graphical user interface of the artifact.<p>
+Deployed Atrifact:<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/f3c952bd-8908-48e3-b9a9-f23b5bd9c4d5)
+
+
+
+
+
+
 
 
 

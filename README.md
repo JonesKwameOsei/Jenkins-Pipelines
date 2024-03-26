@@ -30,7 +30,35 @@ Creating pipeline jobs in **Jenkins** is essential for automating and orchestrat
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/c7e2290c-d5ef-4180-9cb5-bbe1623b819c)<p>
 2. Enter a name in the **Enter an item name** field. For example, **webapp-pipeline-job**.
 3. Select **Pipeline** and click **OK**.<p>
-![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/ec449fec-137a-4375-8a2f-d9771dd7f473)
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/ec449fec-137a-4375-8a2f-d9771dd7f473)<p>
+4. On the **configuration** page, add a **descrioption** to the pipeline. This is optional but gives a brief details of the pipeline. <p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/507793d6-4a5d-4fbb-9c19-c68b62b42ba0)<p>
+5. Next, click on **Pipeline** under **Configure**.
+6. At the **Pipeline** section, under **Definition**, click on the drop down and select **Pipeline script** from the options. **NB**: This option is chosen becuase we donot have a **Jenkins file** in our version control.
+7. Next, it is time to write the **pipeline scripts**. Jenkins provides a sample script to try hands on.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/7c5ae642-8acf-4cd2-a853-f731b47dcf38)<p>
+i. Write a script for **Git clone**, click **Apply** and **Save**.
+```
+pipeline {
+    agent any
+    tools {
+        maven 'maven3.9.6'
+    }
+
+    stages {
+        stage('Git clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/JonesKwameOsei/web-app.git'
+            }
+        }
+    }
+}
+```
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/6a79ce0e-a561-43c0-84c7-e48c7fd9332b)
+
+
+
+
 
 
 

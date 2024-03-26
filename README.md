@@ -138,7 +138,10 @@ At this stage, we will test the built artifact with sonarqube utilising **Jenkin
 - Server authentication token: Click **+ Add**, select **Jenkins** to add SonarQube credentials as below.<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/d495ecd4-abda-4934-bb34-01abc8da5933)<P>
 - Click the drop down under the **Server authentication token** and select the credential we created. <p>
-![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/13a52f3f-164f-44d9-b491-cf8cfb94646e)
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/13a52f3f-164f-44d9-b491-cf8cfb94646e)<p>
+- Click **Apply** and **Save**.
+9. Click on **webapp-pipeline-job** on the **Jenkins Dashboard** to return to the job page, then select **Configure**.
+10. 
 
 
 

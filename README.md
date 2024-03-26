@@ -200,6 +200,94 @@ Jenkins has completed the build without error. <p>
 Let us confirm the test of the artifact in the **SonarQube server**. <p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/e49ca1c0-29a3-48a8-a46f-091decb73c86)<p>
 
+### Upload Build Artifact into Nexus with Jenkins. 
+Having tested the build artifact, we will upload it to Nexus. Jenkins utilises the **Nexus Artifact Uploader** plugin to execute this job.
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/4d4e2e2d-63a3-4ca2-9754-e2b0e09740e1)<p>
+1. Navigate to the **Configure** page of the Jenkins job and click **Pipeline**.
+2. Under **Use Groovy Sandbox?**, click on **Pipeline Syntax**<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/00223438-daad-4264-a3f8-2d501e738a99)<p>
+3. Configure the following under **Steps**:
+- Sample Step: Select **nexusArtifactUploader**
+- Nexus Details-Nexus Version: NEXUS3
+- Protocol: HTTP
+- Nexus URL: This the url of the location to laod the artifact. This is configured in the pom.xml file. e.g. IPAddress/repository/webapp-release/
+- Credentials: Click **Add** to configure Nexus credentials in Jenkins. Then, select it.
+- GroupId: This is also located in the pom.xml configuration, "com.mt".
+```
+<groupId>com.mt</groupId>
+	<artifactId>maven-web-application</artifactId>
+	<packaging>war</packaging>
+	<version>3.1.2-RELEASE</version>
+```
+- Version: 3.1.2-RELEASE
+- Repository (Nmae of repo): webapp-release/
+- Add Artifact, ArtifactId: maven-web-application
+- Classifier: leave blank
+- File: File path in the workspace. ex:artifact.zip or artifact.jar. e.g. /var/lib/jenkins/workspace/webapp-pipeline-job/target/web-app.war
+4. Click **Generate Pipeline Script** to generate the script.
+5. Add another **stage** to the **Pipeline scripts**.
+```
+pipeline {
+    agent any
+    tools {
+        maven 'Maven3.9.6'
+    }
+
+    stages {
+        stage('Git clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/JonesKwameOsei/web-app.git'
+            }
+        }
+
+        stage('Build with Maven') {
+            steps{
+                sh "mvn clean"
+            }
+        }
+
+        stage('Testing with Maven') {
+            steps{
+                sh "mvn  test"
+            }
+        }
+
+        stage('Package with Maven') {
+            steps {
+                sh "mvn package"
+            }
+        }
+        stage('SonarQube Analysis') {
+            environment {
+                ScannerHome = tool 'Sonar5.0'
+            }
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${ScannerHome}/bin/sonar-scanner -Dsonar.projectKey=jones"
+                    }
+                }
+            }
+        }
+
+        stage('Upload to Nexus') {
+            steps {
+                nexusArtifactUploader artifacts: [[artifactId: 'maven-web-application', classifier: '', file: '/var/lib/jenkins/workspace/webapp-pipeline-job/target/web-app.war', type: 'war']], credentialsId: 'Nexus-id', groupId: 'com.mt', nexusUrl: '18.170.1.140:8081/', nexusVersion: 'nexus3', protocol: 'http', repository: 'webapp-release', version: '3.1.2-RELEASE'
+            }
+        }
+    }
+}
+```
+6. Click **Build Now** on the **webapp-pipeline-job** to load the artifact to the repo in the Nexus server.
+Jenkins has build the job by loading the artifact to the repo, **webapp-release** in the **Nexus server.**<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/934d839d-9eab-46f2-8140-6e9e69c45fd0)<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/b84f237f-c7e6-44df-a008-f6e074ce9b7a)<p>
+
+
+
+
+
+
 
 
 

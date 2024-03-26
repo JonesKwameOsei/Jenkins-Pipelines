@@ -362,6 +362,30 @@ Tomcat server after deployment:<p>
 It is evident that we have successfully deployed a build artifact on Apache Tomcat9 server with **Jenkins continuous integration and continuous deployment. Clicking on **/web-app** on the **Tomcat Web Application Manager** will display the graphical user interface of the artifact.<p>
 Deployed Atrifact:<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/f3c952bd-8908-48e3-b9a9-f23b5bd9c4d5)
+### Configure Jenkins with Gibhub webhook
+1. On Github, in the repo, click **Settings**.
+2. On the left left sidebar, click **webhooks**.
+3. Next, **Add webhook**
+4. - Payload URL: jenkinsserverurl/github-webhook/github-webhook/github-webhook/
+   - Content type: application/x-www-from-urlencoded
+   - Secret: can be left blank
+   - Which events would you like to trigger this webhook?: select **Just push event**.
+   - Active: Click **Add Webhook**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/91e0255a-6612-488e-a478-241a9cbc7a03)<p>
+5. In the Jenkins configuration page, under **General**, check mark **GitHub hook trigger for GITScm polling**.
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/f6015b42-18e1-4060-9732-80cbdf92c52d)<p>
+
+Having configured this, any change of event would trigger Jenkins to run a **build job***.<p>
+Made changes to in the source code, pushed the changes to github and it triggered Jenkins to run the build job. <p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/d349a3fb-1158-4c7f-967e-56b9658f2d02)<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/3a6c9d6e-3bb2-419d-a1e4-7917686b5aee)<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/9009ba29-9ddd-45b2-b042-79e3d8d56e16)<p>
+Let us confirm the changes from the Tomcat Server.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/2799065a-d794-45aa-8804-abfd3a584f46)<p>
+From the above, we couls observe the the web home page have been updated and the title are in caps "WELCOME TO JOMACS IT SOLUTIONS INC." as compared to the previous home page. 
+
+
+
 
 
 

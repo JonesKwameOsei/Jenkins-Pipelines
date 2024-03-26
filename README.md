@@ -59,7 +59,13 @@ pipeline {
 8. Next, click on **Build Now** on the **webapp-pipeline-job** page. This instructs **Jenkns** builds the first job, **cloning the git repo**.<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/1c6e60cf-f20e-4b32-bc3e-89a16dad2d0c)<p>
 The build has been successful. Jenkins has clone the **Github repo** containing the source code.<p>
-![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/3ca668f8-a7f9-4704-9694-c5d49ae8396c)
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/b7411e31-73de-4dac-bdfb-a75414aea47c)<p>
+
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/3ca668f8-a7f9-4704-9694-c5d49ae8396c)<p>
+At this point, we can understand the job properly courtesy **Blue Ocean**, one of the plugins we installed earlier. <p>.
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/fff9a4a4-2cda-42d0-904d-f0e1d06c083e)<p>
+
+
 
 
 

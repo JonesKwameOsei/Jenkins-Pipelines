@@ -3,7 +3,7 @@ Defining automated and reusable workflows for continuous integration and continu
 ## Overview
 In this project, we aim to leverage Jenkins high level automation and robust capabilities to make **integration simple, repeatable process** of the software development workflow to drastically reduce costs and respond to **early defects**. 
 
-### Install Plugins
+## Install Plugins
 Jenkins require plugins to run the pipelines, hence, we will need to install these first. The underlisted plugins will be installed in Jenkins:
   - SonarQube Scanner
   - Nexus Artifact Uploader
@@ -14,5 +14,32 @@ Jenkins require plugins to run the pipelines, hence, we will need to install the
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/27ab847c-1852-4ce6-82c0-55e603f2e5ce)<p>
 2. On the **Manage Jenkins** page, click on **Plugins**.<p>
 ![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/4f21a5ce-58a1-4eef-9bc7-1bd1c715ce80)<p>
+3. On the **Plugins** page, click on **Available plugins**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/752c4dd4-ff16-486b-9cfd-549666e20989)<p>
+4. In the **search bar**, type in **SonarQube Scanner** and **check mark** it.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/8f67c327-bc93-40be-a6a2-2a9e176acf46)<p>
+5. Repeat **step 4** for the remaining plugins listed above.<p>
+6. Next, click on **install**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/7fd7631f-5b38-433a-95a9-caf12287bf03)<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/085f0edf-5f26-40d2-b31a-c134d294a11b)<p>
+7. Navigate to the **Jenkins Dashboard**.
+
+## Create Pipeline Job 
+Creating pipeline jobs in **Jenkins** is essential for automating and orchestrating the software delivery process. Pipelines allow **DevOps teams** to define the entire **build, test, and deployment process as code**, which brings several benefits such as **consistency**, ***visibility**, **reproducibility**, **traceability** and **efficiency**. To create the pipeline job:
+1. Click on **New Item** on the Jenkins dashboard.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/c7e2290c-d5ef-4180-9cb5-bbe1623b819c)<p>
+2. Enter a name in the **Enter an item name** field. For example, **webapp-pipeline-job**.
+3. Select **Pipeline** and click **OK**.<p>
+![image](https://github.com/JonesKwameOsei/Jenkins-Pipelines/assets/81886509/ec449fec-137a-4375-8a2f-d9771dd7f473)
+
+
+
+
+
+
+
+
+
+
 
 
